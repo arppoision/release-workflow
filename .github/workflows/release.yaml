@@ -26,7 +26,7 @@ jobs:
       - name: Generate changelog notes
         run: |
           curr_release=$(git describe --tags)
-          # prev_release=$(git describe --tags --abbrev=0 $(git rev-list --tags --skip=1 --max-count=1))
+          prev_release=$(git describe --tags --abbrev=0 $(git rev-list --tags --skip=1 --max-count=1) 2>/dev/null || echo "")
           echo "${prev_release}..${curr_release}"
           git log ${prev_release}..${curr_release} --pretty=format:"%s" > commits.txt
           git tag -d "$curr_release"
